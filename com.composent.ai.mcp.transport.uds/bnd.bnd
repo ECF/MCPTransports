@@ -1,0 +1,12 @@
+-buildpath: \
+	io.modelcontextprotocol.sdk.mcp,\
+	slf4j.api,\
+	com.fasterxml.jackson.core.jackson-annotations,\
+	com.fasterxml.jackson.core.jackson-core,\
+	com.fasterxml.jackson.core.jackson-databind,\
+	org.eclipse.ecf.ai.mcp.transports,\
+	io.projectreactor.reactor-core,\
+	reactive-streams,\
+	org.osgi.annotation.bundle,\
+	org.osgi.annotation.versioning
+Export-Package: com.composent.ai.mcp.transport.uds
