@@ -91,7 +91,7 @@ public class UDSMcpServerTransportProvider implements McpServerTransportProvider
 		}
 		catch (IOException e) {
 			this.serverSocketChannel.close();
-			throw new RuntimeException("accepterNonBlockSocketChannel could not be started");
+			throw new RuntimeException("accepterNonBlockSocketChannel could not be started", e);
 		}
 	}
 

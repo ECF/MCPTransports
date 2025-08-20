@@ -42,8 +42,16 @@ public class UDSMcpClientTransport implements McpClientTransport {
 
 	private volatile boolean isClosing = false;
 
-	public UDSMcpClientTransport(ObjectMapper objectMapper, int incomingBufferSize, UnixDomainSocketAddress targetAddress)
-			throws IOException {
+	public UDSMcpClientTransport(UnixDomainSocketAddress targetAddress) throws IOException {
+		this(new ObjectMapper(), UDSClientStringChannel.DEFAULT_INBUFFER_SIZE, targetAddress);
+	}
+
+	public UDSMcpClientTransport(int incomingBufferSize, UnixDomainSocketAddress targetAddress) throws IOException {
+		this(new ObjectMapper(), incomingBufferSize, targetAddress);
+	}
+
+	public UDSMcpClientTransport(ObjectMapper objectMapper, int incomingBufferSize,
+			UnixDomainSocketAddress targetAddress) throws IOException {
 		Assert.notNull(objectMapper, "objectMapper can not be null");
 		Assert.notNull(targetAddress, "targetAddress cannot be null");
 		this.objectMapper = objectMapper;

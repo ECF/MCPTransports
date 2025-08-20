@@ -1,0 +1,9 @@
+-buildpath: \
+	org.osgi.service.component.annotations,\
+	com.fasterxml.jackson.core.jackson-databind,\
+	io.projectreactor.reactor-core,\
+	org.eclipse.ecf.remoteservice.asyncproxy,\
+	com.composent.ai.mcp.transport.uds,\
+	io.modelcontextprotocol.sdk.mcp;version='0.13',\
+	slf4j.api
+
