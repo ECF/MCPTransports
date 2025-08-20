@@ -18,3 +18,4 @@ Project: Example MCP Clients using UDS transport:  [MCP Async and Sync Clients](
 
 ## Running the Examples
 This repo is a [Bndtools Workspace](https://bndtools.org/).  [Bndtools 7.1+ with Eclipse](https://bndtools.org/installation.html) is required to run and debug the examples without adding other meta-data.
+
