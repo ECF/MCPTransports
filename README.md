@@ -3,7 +3,7 @@ Alternative and enhanced transports for the Model Context Protocol
 
 ## Unix Domain Sockets (UDS) MCP Transport
 
-[com.composent.ai.mcp.transport.uds](com.composent.ai.transport.uds) -> Unix Domain Sockets transport for mcp sync or async client <-> server communication (Java)
+[com.composent.ai.mcp.transport.uds](/com.composent.ai.mcp.transport.uds):  Unix Domain Sockets transport to support MCP sync or async server <-> client communication (Java)
 
 ### Example UDS MCP Servers and Clients
 
