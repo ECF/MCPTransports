@@ -146,7 +146,7 @@ public class UDSMcpClientTransport implements McpClientTransport {
 			}
 			return Mono.empty();
 		})).doOnNext(o -> {
-			logger.info("MCP server process stopped");
+			logger.info("channel closed");
 		}).then(Mono.fromRunnable(() -> {
 			try {
 				outboundScheduler.dispose();
