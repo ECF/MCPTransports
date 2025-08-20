@@ -6,15 +6,15 @@ The purpose of this project is to provide alternative transports.  The intention
 
 ## Transport: Unix Domain Sockets (UDS) MCP Transport
 
-[com.composent.ai.mcp.transport.uds](/com.composent.ai.mcp.transport.uds):  Unix Domain Sockets transport to support MCP sync or async server <-> client communication (Java)
+Project: [com.composent.ai.mcp.transport.uds](/com.composent.ai.mcp.transport.uds):  Unix Domain Sockets transport to support MCP sync or async server <-> client communication (Java)
 
 UDS supports [inter-process communication in the same operating system](https://en.wikipedia.org/wiki/Unix_domain_socket). For some use cases, this provides a higher level of security than http (e.g. localhost-only MCP server <-> client communication), and is somewhat more flexible than stdio.
 
 ### Example UDS MCP Servers and Clients
 
-Example MCP Servers using UDS transport:  [MCP Async and Sync Servers](/com.composent.ai.mcp.examples.transport.uds.mcpserver)  (Java)
+Project: Example MCP Servers using UDS transport:  [MCP Async and Sync Servers](/com.composent.ai.mcp.examples.transport.uds.mcpserver)  (Java)
 
-Example MCP Clients using UDS transport:  [MCP Async and Sync Clients](/com.composent.ai.mcp.examples.transport.uds.mcpclient)  (Java)
+Project: Example MCP Clients using UDS transport:  [MCP Async and Sync Clients](/com.composent.ai.mcp.examples.transport.uds.mcpclient)  (Java)
 
 ## Running the Examples
 This repo is a [Bndtools Workspace](https://bndtools.org/).  [Bndtools 7.1+ with Eclipse](https://bndtools.org/installation.html) is required to run and debug the examples without adding other meta-data.
