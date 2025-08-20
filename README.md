@@ -1,4 +1,4 @@
-# MCPTransports - Alternative Transports for Model Context Protocol (MCP) Servers and Clients
+# MCPTransports - Alternative Transports for MCP Servers and Clients
 
 In the [Java MCP SDK](https://github.com/modelcontextprotocol/java-sdk), MCP Servers and Clients creation require a transport implementation.  The two transports supported in the existing mcp java sdk are [stdio and http](https://github.com/modelcontextprotocol/java-sdk/tree/main/mcp/src/main/java/io/modelcontextprotocol/server/transport).
 
