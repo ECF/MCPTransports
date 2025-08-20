@@ -2,7 +2,7 @@
 
 In the [Java MCP SDK](https://github.com/modelcontextprotocol/java-sdk), MCP Servers and Clients creation require a transport implementation.  The two transports supported in the mcp java sdk are [stdio and http](https://github.com/modelcontextprotocol/java-sdk/tree/main/mcp/src/main/java/io/modelcontextprotocol/server/transport).
 
-The purpose of this project is to provide alternative transports for developers interested in building MCP Servers.  The intention is to start with Java Implementations and provide Python and Javascript implementations as well.
+The purpose of this project is to provide alternative transports for developers interested in building MCP Servers.  The intention is to start with Java Implementations and provide Python and Javascript implementations as needed.
 
 ## Transport: Unix Domain Sockets (UDS) MCP Transport
 
