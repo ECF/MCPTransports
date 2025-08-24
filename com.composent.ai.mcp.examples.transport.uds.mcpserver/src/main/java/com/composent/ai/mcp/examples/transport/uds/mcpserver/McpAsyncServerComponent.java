@@ -22,7 +22,7 @@ public class McpAsyncServerComponent {
 	
 	private static Logger logger = LoggerFactory.getLogger(McpAsyncServerComponent.class);
 	// file named to be used for client <-> server communication
-	private final Path socketPath = Paths.get("").resolve("a.socket").toAbsolutePath();
+	private final Path socketPath = Paths.get("").resolve("McpAsyncServerComponent.socket").toAbsolutePath();
 
 	private McpAsyncServer server;
 
@@ -30,14 +30,14 @@ public class McpAsyncServerComponent {
 	void activate() throws Exception {
 		// The s.socket file might still be there from previous run
 		Files.deleteIfExists(socketPath);
-		logger.debug("starting uds async server with socketPath={}", socketPath);
+		logger.debug("starting uds async server with socket at path={}", socketPath);
 		// Create unix domain socket transport
 		UDSMcpServerTransportProvider transport = new UDSMcpServerTransportProvider(
 				UnixDomainSocketAddress.of(socketPath));
 		// Create sync server
-		this.server = McpServer.async(transport).serverInfo("arithmetic-server", "1.0.0")
+		this.server = McpServer.async(transport).serverInfo("example-async-uds-transport-server", "1.0.0")
 				.capabilities(ServerCapabilities.builder().tools(true).build()).build();
-		logger.debug("async server started");
+		logger.debug("uds async server started");
 	}
 
 	@Deactivate
@@ -46,7 +46,7 @@ public class McpAsyncServerComponent {
 			this.server.closeGracefully();
 			this.server = null;
 			Files.deleteIfExists(socketPath);
-			logger.debug("async server stopped");
+			logger.debug("uds async server stopped");
 		}
 	}
 }

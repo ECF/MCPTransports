@@ -20,23 +20,23 @@ public class McpAsyncClientComponent {
 
 	private static Logger logger = LoggerFactory.getLogger(McpAsyncClientComponent.class);
 
-	private final Path socketPath = Path.of("").toAbsolutePath().getParent().resolve("com.composent.ai.mcp.examples.transport.uds.mcpserver").resolve("a.socket").toAbsolutePath();
+	private final Path socketPath = Path.of("").toAbsolutePath().getParent().resolve("com.composent.ai.mcp.examples.transport.uds.mcpserver").resolve("McpAsyncServerComponent.socket").toAbsolutePath();
 
 	private McpAsyncClient client;
 
 	@Activate
 	void activate() throws Exception {
-		logger.debug("starting uds async client with socketPath={}", socketPath);
+		logger.debug("starting uds async client with socket path={}", socketPath);
 		// create UDS transport via the socketPath (default is 
 		UDSMcpClientTransport transport = new UDSMcpClientTransport(UnixDomainSocketAddress.of(socketPath));
 		// Create client with transport
 		client = McpClient.async(transport).capabilities(ClientCapabilities.builder().build()).build();
 		// initialize will connect to server
 		client.initialize();
-		logger.debug("client initialized");
+		logger.debug("uds async client initialized");
 		// test list tools from server
 		client.listTools().doOnSuccess(
-				result -> result.tools().forEach(tool -> logger.debug("client seeing tool=" + tool.toString())));
+				result -> result.tools().forEach(tool -> logger.debug("uds async client seeing tool=" + tool.toString())));
 	}
 
 	@Deactivate
@@ -44,7 +44,7 @@ public class McpAsyncClientComponent {
 		if (this.client != null) {
 			this.client.closeGracefully();
 			this.client = null;
-			logger.debug("client closed");
+			logger.debug("uds async client closed");
 		}
 	}
 
