@@ -20,7 +20,7 @@ public class McpAsyncClientComponent {
 
 	private static Logger logger = LoggerFactory.getLogger(McpAsyncClientComponent.class);
 
-	private final Path socketPath = Path.of("").toAbsolutePath().getParent().resolve("com.composent.ai.mcp.examples.transport.uds.mcpserver").resolve("McpAsyncServerComponent.socket").toAbsolutePath();
+	private final Path socketPath = Path.of("").toAbsolutePath().getParent().resolve("com.composent.ai.mcp.examples.transport.uds.mcpserver").resolve("a.socket").toAbsolutePath();
 
 	private McpAsyncClient client;
 

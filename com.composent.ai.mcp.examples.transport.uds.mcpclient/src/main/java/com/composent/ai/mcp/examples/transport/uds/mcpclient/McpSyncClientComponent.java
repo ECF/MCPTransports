@@ -20,7 +20,7 @@ public class McpSyncClientComponent {
 
 	private static Logger logger = LoggerFactory.getLogger(McpSyncClientComponent.class);
 
-	private final Path socketPath = Path.of("").toAbsolutePath().getParent().resolve("com.composent.ai.mcp.examples.transport.uds.mcpserver").resolve("McpSyncServerComponent.socket").toAbsolutePath();
+	private final Path socketPath = Path.of("").toAbsolutePath().getParent().resolve("com.composent.ai.mcp.examples.transport.uds.mcpserver").resolve("s.socket").toAbsolutePath();
 
 	private McpSyncClient client;
 

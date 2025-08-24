@@ -22,7 +22,7 @@ public class McpAsyncServerComponent {
 	
 	private static Logger logger = LoggerFactory.getLogger(McpAsyncServerComponent.class);
 	// file named to be used for client <-> server communication
-	private final Path socketPath = Paths.get("").resolve("McpAsyncServerComponent.socket").toAbsolutePath();
+	private final Path socketPath = Paths.get("").resolve("a.socket").toAbsolutePath();
 
 	private McpAsyncServer server;
 

@@ -22,7 +22,7 @@ public class McpSyncServerComponent {
 	
 	private static Logger logger = LoggerFactory.getLogger(McpSyncServerComponent.class);
 	// file named to be used for client <-> server communication
-	private final Path socketPath = Paths.get("").resolve("McpSyncServerComponent.socket").toAbsolutePath();
+	private final Path socketPath = Paths.get("").resolve("s.socket").toAbsolutePath();
 
 	private McpSyncServer server;
 
