@@ -40,7 +40,7 @@ public class UDSMcpServerTransportProvider implements McpServerTransportProvider
 	// Required Path for UnixDomainSocket creation
 	private final Path targetAddress;
 	// Determines whether the server allows new client to connect after previous client disconnects
-	private final boolean restartSession;
+	private boolean restartSession;
 	// Created/set in setSessionFactory
 	private McpServerSession serverSession;
 	// Created/set in setSessionFactory
@@ -58,6 +58,10 @@ public class UDSMcpServerTransportProvider implements McpServerTransportProvider
 		this(new ObjectMapper(), incomingBufferSize, targetAddress, restartSession);
 	}
 
+	public void setRestart(boolean restart) {
+		this.restartSession = restart;
+	}
+	
 	public UDSMcpServerTransportProvider(ObjectMapper objectMapper, int incomingBufferSize, Path targetAddress,
 			boolean restartSession) {
 		Assert.notNull(objectMapper, "objectMapper cannot be null");
