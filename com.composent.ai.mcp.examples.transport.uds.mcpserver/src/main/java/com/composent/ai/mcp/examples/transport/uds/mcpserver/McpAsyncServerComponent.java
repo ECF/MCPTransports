@@ -1,6 +1,5 @@
 package com.composent.ai.mcp.examples.transport.uds.mcpserver;
 
-import java.net.UnixDomainSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,7 +32,7 @@ public class McpAsyncServerComponent {
 		logger.debug("starting uds async server with socket at path={}", socketPath);
 		// Create unix domain socket transport
 		UDSMcpServerTransportProvider transport = new UDSMcpServerTransportProvider(
-				UnixDomainSocketAddress.of(socketPath));
+				socketPath, true);
 		// Create sync server
 		this.server = McpServer.async(transport).serverInfo("example-async-uds-transport-server", "1.0.0")
 				.capabilities(ServerCapabilities.builder().tools(true).build()).build();
@@ -45,7 +44,6 @@ public class McpAsyncServerComponent {
 		if (this.server != null) {
 			this.server.closeGracefully();
 			this.server = null;
-			Files.deleteIfExists(socketPath);
 			logger.debug("uds async server stopped");
 		}
 	}

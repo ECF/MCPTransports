@@ -2,13 +2,15 @@ package com.composent.ai.mcp.transport.uds;
 
 import java.io.IOException;
 import java.net.UnixDomainSocketAddress;
+import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
+import java.nio.file.Path;
+import java.nio.file.Files;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
 import org.eclipse.ecf.ai.mcp.transports.AbstractStringChannel;
-import org.eclipse.ecf.ai.mcp.transports.UDSServerStringChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,127 +33,119 @@ import reactor.core.scheduler.Schedulers;
 public class UDSMcpServerTransportProvider implements McpServerTransportProvider {
 
 	private static final Logger logger = LoggerFactory.getLogger(UDSMcpServerTransportProvider.class);
-
+	// Required for serializing/deserializing json messages
 	private final ObjectMapper objectMapper;
+	// Required for configuring session/channel byte buffer size
+	private final int incomingBufferSize;
+	// Required Path for UnixDomainSocket creation
+	private final Path targetAddress;
+	// Determines whether the server allows new client to connect after previous client disconnects
+	private final boolean restartSession;
+	// Created/set in setSessionFactory
+	private McpServerSession serverSession;
+	// Created/set in setSessionFactory
+	private UDSMcpSessionTransport sessionTransport;
 
-	private McpServerSession session;
-
-	private final AtomicBoolean isClosing = new AtomicBoolean(false);
-
-	private final Sinks.One<Void> inboundReady = Sinks.one();
-
-	private int incomingBufferSize = AbstractStringChannel.DEFAULT_INBUFFER_SIZE;
-	
-	private UDSServerStringChannel serverSocketChannel;
-
-	private UnixDomainSocketAddress address;
-
-	private UDSMcpSessionTransport transport;
-
-	public UDSMcpServerTransportProvider(UnixDomainSocketAddress unixSocketAddress) {
-		this(new ObjectMapper(), AbstractStringChannel.DEFAULT_INBUFFER_SIZE, unixSocketAddress);
+	public UDSMcpServerTransportProvider(Path targetAddress) {
+		this(targetAddress, false);
 	}
 
-	public UDSMcpServerTransportProvider(int incomingBufferSize, UnixDomainSocketAddress unixSocketAddress) {
-		this(new ObjectMapper(), incomingBufferSize, unixSocketAddress);
+	public UDSMcpServerTransportProvider(Path targetAddress, boolean restartSession) {
+		this(new ObjectMapper(), AbstractStringChannel.DEFAULT_INBUFFER_SIZE, targetAddress, restartSession);
 	}
 
-	public UDSMcpServerTransportProvider(ObjectMapper objectMapper, int incomingBufferSize, UnixDomainSocketAddress unixSocketAddress) {
+	public UDSMcpServerTransportProvider(int incomingBufferSize, Path targetAddress, boolean restartSession) {
+		this(new ObjectMapper(), incomingBufferSize, targetAddress, restartSession);
+	}
+
+	public UDSMcpServerTransportProvider(ObjectMapper objectMapper, int incomingBufferSize, Path targetAddress,
+			boolean restartSession) {
 		Assert.notNull(objectMapper, "objectMapper cannot be null");
-		Assert.notNull(unixSocketAddress, "targetAddress cannot be null");
+		Assert.notNull(targetAddress, "targetAddress cannot be null");
 		this.objectMapper = objectMapper;
 		this.incomingBufferSize = incomingBufferSize;
-		this.address = unixSocketAddress;
+		this.restartSession = restartSession;
+		this.targetAddress = targetAddress;
 	}
 
 	@Override
 	public void setSessionFactory(McpServerSession.Factory sessionFactory) {
-		this.transport = new UDSMcpSessionTransport();
-		this.session = sessionFactory.create(transport);
-		this.transport.initProcessing();
-		try {
-			this.serverSocketChannel = new UDSServerStringChannel(Selector.open(), this.incomingBufferSize);
-			this.serverSocketChannel.start(this.address, (clientChannel) -> {
-				if (logger.isDebugEnabled()) {
-					logger.debug("Accepted connect from clientChannel=" + clientChannel);
-				}
-			}, (dataLine) -> {
-				String message = (String) dataLine;
-				if (logger.isDebugEnabled()) {
-					logger.debug("Received message line=" + message);
-				}
-				try {
-					this.transport
-						.handleMessage(McpSchema.deserializeJsonRpcMessage(this.objectMapper, message.trim()));
-				}
-				catch (IOException e) {
-					this.serverSocketChannel.close();
-				}
-			});
-		}
-		catch (IOException e) {
-			this.serverSocketChannel.close();
-			throw new RuntimeException("accepterNonBlockSocketChannel could not be started", e);
-		}
+		this.sessionTransport = new UDSMcpSessionTransport();
+		this.serverSession = sessionFactory.create(sessionTransport);
+		this.sessionTransport.initProcessing();
 	}
 
 	@Override
 	public Mono<Void> notifyClients(String method, Object params) {
-		if (this.session == null) {
+		if (this.serverSession == null) {
 			return Mono.error(new McpError("No session to close"));
 		}
-		return this.session.sendNotification(method, params)
-			.doOnError(e -> logger.error("Failed to send notification: {}", e.getMessage()));
+		return this.serverSession.sendNotification(method, params)
+				.doOnError(e -> logger.error("Failed to send notification: {}", e.getMessage()));
 	}
 
 	@Override
 	public Mono<Void> closeGracefully() {
-		if (this.session == null) {
+		if (this.serverSession == null) {
 			return Mono.empty();
 		}
-		return this.session.closeGracefully();
+		return this.serverSession.closeGracefully();
+	}
+
+	public boolean isClientConnected() {
+		return (this.sessionTransport != null) ? this.sessionTransport.isClientConnected() : false;
 	}
 
 	private class UDSMcpSessionTransport implements McpServerTransport {
+		
+		private AtomicBoolean isClosing;
 
-		private final Sinks.Many<JSONRPCMessage> inboundSink;
+		private Sinks.Many<JSONRPCMessage> inboundSink;
 
-		private final Sinks.Many<JSONRPCMessage> outboundSink;
+		private Sinks.Many<JSONRPCMessage> outboundSink;
 
-		private final AtomicBoolean isStarted = new AtomicBoolean(false);
+		private AtomicBoolean isStarted;
+
+		private Sinks.One<Void> inboundReady;
 
 		private Scheduler outboundScheduler;
 
-		private final Sinks.One<Void> outboundReady = Sinks.one();
+		private Sinks.One<Void> outboundReady;
 
-		public UDSMcpSessionTransport() {
+		private UDSServerStringChannel serverSocketChannel;
 
+		private synchronized void initialize() {
+			isClosing = new AtomicBoolean(false);
+			isStarted = new AtomicBoolean(false);
+			outboundReady = Sinks.one();
+			inboundReady = Sinks.one();
 			this.inboundSink = Sinks.many().unicast().onBackpressureBuffer();
 			this.outboundSink = Sinks.many().unicast().onBackpressureBuffer();
-
 			this.outboundScheduler = Schedulers.fromExecutorService(Executors.newSingleThreadExecutor(),
 					"uds-outbound");
 		}
 
-		public void handleMessage(McpSchema.JSONRPCMessage json) throws IOException {
+		public UDSMcpSessionTransport() {
+			initialize();
+		}
+
+		public synchronized void handleMessage(McpSchema.JSONRPCMessage json) throws IOException {
 			try {
 				if (!this.inboundSink.tryEmitNext(json).isSuccess()) {
 					throw new Exception("Failed to enqueue message");
 				}
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				logIfNotClosing("Error processing inbound message", e);
 				throw new IOException("Error in processing inbound message", e);
 			}
 		}
 
 		@Override
-		public Mono<Void> sendMessage(McpSchema.JSONRPCMessage message) {
+		public synchronized Mono<Void> sendMessage(McpSchema.JSONRPCMessage message) {
 			return Mono.zip(inboundReady.asMono(), outboundReady.asMono()).then(Mono.defer(() -> {
 				if (outboundSink.tryEmitNext(message).isSuccess()) {
 					return Mono.empty();
-				}
-				else {
+				} else {
 					return Mono.error(new RuntimeException("Failed to enqueue message"));
 				}
 			}));
@@ -172,24 +166,81 @@ public class UDSMcpServerTransportProvider implements McpServerTransportProvider
 		}
 
 		@Override
-		public void close() {
+		public synchronized void close() {
+			if (logger.isDebugEnabled()) {
+				logger.debug("Session transport closing");
+			}
 			isClosing.set(true);
 			serverSocketChannel.close();
-			logger.debug("Session transport closed");
+			if (logger.isDebugEnabled()) {
+				logger.debug("Session transport closed");
+			}
+		}
+
+		public synchronized boolean isClientConnected() {
+			return isClosing.get() ? false : this.serverSocketChannel.isClientConnected();
 		}
 
 		private void initProcessing() {
-			handleIncomingMessages();
+			this.inboundSink.asFlux().flatMap(message1 -> serverSession.handle(message1)).doOnTerminate(() -> {
+				this.outboundSink.tryEmitComplete();
+			}).subscribe();
+
 			if (isStarted.compareAndSet(false, true)) {
 				inboundReady.tryEmitValue(null);
 			}
-			startOutboundProcessing();
-		}
 
-		private void handleIncomingMessages() {
-			this.inboundSink.asFlux().flatMap(message -> session.handle(message)).doOnTerminate(() -> {
-				this.outboundSink.tryEmitComplete();
-			}).subscribe();
+			try {
+				this.serverSocketChannel = new UDSServerStringChannel(Selector.open(), incomingBufferSize) {
+					@Override
+					protected void handleException(SelectionKey key, Throwable e) {
+						// Do this with existing executor
+						if (restartSession) {
+							executor.execute(() -> {
+								try {
+									synchronized (UDSMcpSessionTransport.this) {
+										UDSMcpSessionTransport.this.close();
+										// Delete the file underneath the UDS socket
+										Files.deleteIfExists(targetAddress);
+										if (logger.isDebugEnabled()) {
+											logger.debug("Session transport restarting");
+										}
+										initialize();
+										initProcessing();
+										if (logger.isDebugEnabled()) {
+											logger.debug("Session transport restarted");
+										}
+									}
+								} catch (IOException e1) {
+									logger.error("Could not restart server session", e1);
+								}
+							});
+						}
+					}
+				};
+				this.serverSocketChannel.start(UnixDomainSocketAddress.of(targetAddress), (clientChannel) -> {
+					if (logger.isDebugEnabled()) {
+						logger.debug("Accepted connect from clientChannel=" + clientChannel);
+					}
+					startOutboundProcessing();
+				}, (dataLine) -> {
+					String message = (String) dataLine;
+					if (logger.isDebugEnabled()) {
+						logger.debug("Received message line=" + message);
+					}
+					try {
+						handleMessage(McpSchema.deserializeJsonRpcMessage(objectMapper, message.trim()));
+					} catch (IOException e) {
+						this.serverSocketChannel.close();
+					}
+				});
+			} catch (IOException e) {
+				this.serverSocketChannel.close();
+				throw new RuntimeException("accepterNonBlockSocketChannel could not be started", e);
+			}
+			if (logger.isDebugEnabled()) {
+				logger.debug("Session transport initProcessing completed");
+			}
 		}
 
 		private void startOutboundProcessing() {
