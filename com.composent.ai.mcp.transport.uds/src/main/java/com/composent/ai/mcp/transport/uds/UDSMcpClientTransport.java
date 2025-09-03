@@ -3,6 +3,7 @@ package com.composent.ai.mcp.transport.uds;
 import java.io.IOException;
 import java.net.UnixDomainSocketAddress;
 import java.nio.channels.Selector;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.util.concurrent.Executors;
 import java.util.function.Function;
@@ -36,22 +37,22 @@ public class UDSMcpClientTransport implements McpClientTransport {
 
 	private UDSClientStringChannel clientChannel;
 
-	private UnixDomainSocketAddress targetAddress;
+	private Path targetAddress;
 
 	private Scheduler outboundScheduler;
 
 	private volatile boolean isClosing = false;
 
-	public UDSMcpClientTransport(UnixDomainSocketAddress targetAddress) throws IOException {
+	public UDSMcpClientTransport(Path targetAddress) throws IOException {
 		this(new ObjectMapper(), UDSClientStringChannel.DEFAULT_INBUFFER_SIZE, targetAddress);
 	}
 
-	public UDSMcpClientTransport(int incomingBufferSize, UnixDomainSocketAddress targetAddress) throws IOException {
+	public UDSMcpClientTransport(int incomingBufferSize, Path targetAddress) throws IOException {
 		this(new ObjectMapper(), incomingBufferSize, targetAddress);
 	}
 
 	public UDSMcpClientTransport(ObjectMapper objectMapper, int incomingBufferSize,
-			UnixDomainSocketAddress targetAddress) throws IOException {
+			Path targetAddress) throws IOException {
 		Assert.notNull(objectMapper, "objectMapper can not be null");
 		Assert.notNull(targetAddress, "targetAddress cannot be null");
 		this.objectMapper = objectMapper;
@@ -70,7 +71,7 @@ public class UDSMcpClientTransport implements McpClientTransport {
 		return Mono.<Void>fromRunnable(() -> {
 			handleIncomingMessages(handler);
 			try {
-				this.clientChannel.connect(targetAddress, (client) -> {
+				this.clientChannel.connect(UnixDomainSocketAddress.of(targetAddress), (client) -> {
 					logger.info("CONNECTED to targetAddress=" + targetAddress);
 				}, (data) -> {
 					JSONRPCMessage json = McpSchema.deserializeJsonRpcMessage(this.objectMapper, data);

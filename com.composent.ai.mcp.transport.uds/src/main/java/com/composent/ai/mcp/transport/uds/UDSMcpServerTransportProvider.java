@@ -93,6 +93,7 @@ public class UDSMcpServerTransportProvider implements McpServerTransportProvider
 		if (this.serverSession == null) {
 			return Mono.empty();
 		}
+		setRestart(false);
 		return this.serverSession.closeGracefully();
 	}
 

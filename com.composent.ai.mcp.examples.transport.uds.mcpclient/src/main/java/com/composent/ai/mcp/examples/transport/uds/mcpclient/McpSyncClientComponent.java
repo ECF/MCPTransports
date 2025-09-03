@@ -1,6 +1,5 @@
 package com.composent.ai.mcp.examples.transport.uds.mcpclient;
 
-import java.net.UnixDomainSocketAddress;
 import java.nio.file.Path;
 
 import org.osgi.service.component.annotations.Activate;
@@ -28,7 +27,7 @@ public class McpSyncClientComponent {
 	void activate() throws Exception {
 		logger.debug("starting uds client with socket at path={}", socketPath);
 		// create UDS transport via the socketPath (default is 
-		UDSMcpClientTransport transport = new UDSMcpClientTransport(UnixDomainSocketAddress.of(socketPath));
+		UDSMcpClientTransport transport = new UDSMcpClientTransport(socketPath);
 		// Create client with transport
 		client = McpClient.sync(transport).capabilities(ClientCapabilities.builder().build()).build();
 		// initialize will connect to server
