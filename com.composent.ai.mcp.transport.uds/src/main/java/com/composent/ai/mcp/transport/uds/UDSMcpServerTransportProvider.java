@@ -94,7 +94,7 @@ public class UDSMcpServerTransportProvider implements McpServerTransportProvider
 	@Override
 	public Mono<Void> notifyClients(String method, Object params) {
 		if (this.serverSession == null) {
-			return Mono.error(new McpError("No session to close"));
+			return Mono.error(McpError.builder(-1).message("No uds acceptedClient to use for notifyClients").build());
 		}
 		return this.serverSession.sendNotification(method, params)
 				.doOnError(e -> logger.error("Failed to send notification: {}", e.getMessage()));
