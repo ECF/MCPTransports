@@ -28,6 +28,8 @@ Here is the creation and use of the transport (sync):
 		logger.debug("uds sync server started");
 ```
 
+The socketPath variable has a valid Path instance identifying the file to be used for client connection on the local file system.
+
 Project: Example MCP Clients using UDS transport:  [MCP Async and Sync Clients](/com.composent.ai.mcp.examples.transport.uds.mcpclient)  (Java)
 
 Same form as sync example above.
