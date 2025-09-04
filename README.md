@@ -14,6 +14,8 @@ UDS supports [inter-process communication in the same operating system](https://
 
 Project: Example MCP Servers using UDS transport:  [MCP Async and Sync Servers](/com.composent.ai.mcp.examples.transport.uds.mcpserver)  (Java)
 
+This example creates an [Async](/blob/main/com.composent.ai.mcp.examples.transport.uds.mcpserver/src/main/java/com/composent/ai/mcp/examples/transport/uds/mcpserver/McpAsyncServerComponent.java) and [Sync](/blob/main/com.composent.ai.mcp.examples.transport.uds.mcpserver/src/main/java/com/composent/ai/mcp/examples/transport/uds/mcpserver/McpSyncServerComponent.java) MCP server that uses  Unix Domain Sockets (UDS) as transport.
+
 Project: Example MCP Clients using UDS transport:  [MCP Async and Sync Clients](/com.composent.ai.mcp.examples.transport.uds.mcpclient)  (Java)
 
 ## Running the Examples
