@@ -5,3 +5,4 @@
 	com.composent.ai.mcp.transport.uds;version=snapshot,\
 	io.projectreactor.reactor-core
 
+Bundle-Version:             1.1.0.${tstamp}

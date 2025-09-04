@@ -10,3 +10,5 @@
 	org.osgi.annotation.bundle,\
 	org.osgi.annotation.versioning
 Export-Package: com.composent.ai.mcp.transport.uds
+
+Bundle-Version:             1.1.0.${tstamp}
