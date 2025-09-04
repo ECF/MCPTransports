@@ -10,18 +10,24 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.composent.ai.mcp.transport.uds.UDSMcpServer;
 import com.composent.ai.mcp.transport.uds.UDSMcpServerTransportProvider;
 
 import io.modelcontextprotocol.server.McpServer;
 import io.modelcontextprotocol.server.McpSyncServer;
 import io.modelcontextprotocol.spec.McpSchema.ServerCapabilities;
 
-@Component
-public class McpSyncServerComponent {
+@Component(immediate=true, service=UDSMcpServer.class)
+public class McpSyncServerComponent implements UDSMcpServer {
 	
 	private static Logger logger = LoggerFactory.getLogger(McpSyncServerComponent.class);
 	// file named to be used for client <-> server communication
 	private final Path socketPath = Paths.get("").resolve("s.socket").toAbsolutePath();
+
+	@Override
+	public Path getUDSTransportPath() {
+		return socketPath;
+	}
 
 	private McpSyncServer server;
 
@@ -48,4 +54,5 @@ public class McpSyncServerComponent {
 			logger.debug("uds sync server stopped");
 		}
 	}
+
 }
