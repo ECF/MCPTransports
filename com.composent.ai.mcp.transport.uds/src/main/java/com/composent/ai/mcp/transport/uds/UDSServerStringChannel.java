@@ -43,7 +43,7 @@ public class UDSServerStringChannel extends ServerStringChannel {
 			IOConsumer<String> readHandler) throws IOException {
 		super.start(StandardProtocolFamily.UNIX, address, acceptHandler, readHandler);
 	}
-	
+
 	public boolean isClientConnected() {
 		return this.acceptedClient != null;
 	}

@@ -4,7 +4,7 @@
 	io.projectreactor.reactor-core,\
 	org.eclipse.ecf.remoteservice.asyncproxy,\
 	com.composent.ai.mcp.transport.uds,\
-	io.modelcontextprotocol.sdk.mcp,\
+	io.modelcontextprotocol.sdk.mcp-osgi,\
 	slf4j.api
 
 Bundle-Version:             1.1.0.${tstamp}

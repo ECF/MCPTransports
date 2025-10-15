@@ -18,6 +18,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.file.Path;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
@@ -26,15 +27,15 @@ import org.eclipse.ecf.ai.mcp.transports.AbstractStringChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import io.modelcontextprotocol.json.McpJsonMapper;
+import io.modelcontextprotocol.json.TypeRef;
 import io.modelcontextprotocol.spec.McpError;
 import io.modelcontextprotocol.spec.McpSchema;
 import io.modelcontextprotocol.spec.McpSchema.JSONRPCMessage;
 import io.modelcontextprotocol.spec.McpServerSession;
 import io.modelcontextprotocol.spec.McpServerTransport;
 import io.modelcontextprotocol.spec.McpServerTransportProvider;
+import io.modelcontextprotocol.spec.ProtocolVersions;
 import io.modelcontextprotocol.util.Assert;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -46,12 +47,13 @@ public class UDSMcpServerTransportProvider implements McpServerTransportProvider
 
 	private static final Logger logger = LoggerFactory.getLogger(UDSMcpServerTransportProvider.class);
 	// Required for serializing/deserializing json messages
-	private final ObjectMapper objectMapper;
+	private final McpJsonMapper jsonMapper;
 	// Required for configuring session/channel byte buffer size
 	private final int incomingBufferSize;
 	// Required Path for UnixDomainSocket creation
 	private final Path targetAddress;
-	// Determines whether the server allows new client to connect after previous client disconnects
+	// Determines whether the server allows new client to connect after previous
+	// client disconnects
 	private boolean restartSession;
 	// Created/set in setSessionFactory
 	private McpServerSession serverSession;
@@ -63,25 +65,30 @@ public class UDSMcpServerTransportProvider implements McpServerTransportProvider
 	}
 
 	public UDSMcpServerTransportProvider(Path targetAddress, boolean restartSession) {
-		this(new ObjectMapper(), AbstractStringChannel.DEFAULT_INBUFFER_SIZE, targetAddress, restartSession);
+		this(McpJsonMapper.getDefault(), AbstractStringChannel.DEFAULT_INBUFFER_SIZE, targetAddress, restartSession);
 	}
 
 	public UDSMcpServerTransportProvider(int incomingBufferSize, Path targetAddress, boolean restartSession) {
-		this(new ObjectMapper(), incomingBufferSize, targetAddress, restartSession);
+		this(McpJsonMapper.getDefault(), incomingBufferSize, targetAddress, restartSession);
 	}
 
 	public void setRestart(boolean restart) {
 		this.restartSession = restart;
 	}
-	
-	public UDSMcpServerTransportProvider(ObjectMapper objectMapper, int incomingBufferSize, Path targetAddress,
+
+	public UDSMcpServerTransportProvider(McpJsonMapper objectMapper, int incomingBufferSize, Path targetAddress,
 			boolean restartSession) {
 		Assert.notNull(objectMapper, "objectMapper cannot be null");
 		Assert.notNull(targetAddress, "targetAddress cannot be null");
-		this.objectMapper = objectMapper;
+		this.jsonMapper = objectMapper;
 		this.incomingBufferSize = incomingBufferSize;
 		this.restartSession = restartSession;
 		this.targetAddress = targetAddress;
+	}
+
+	@Override
+	public List<String> protocolVersions() {
+		return List.of(ProtocolVersions.MCP_2024_11_05);
 	}
 
 	@Override
@@ -114,7 +121,7 @@ public class UDSMcpServerTransportProvider implements McpServerTransportProvider
 	}
 
 	private class UDSMcpSessionTransport implements McpServerTransport {
-		
+
 		private AtomicBoolean isClosing;
 
 		private Sinks.Many<JSONRPCMessage> inboundSink;
@@ -169,8 +176,8 @@ public class UDSMcpServerTransportProvider implements McpServerTransportProvider
 		}
 
 		@Override
-		public <T> T unmarshalFrom(Object data, TypeReference<T> typeRef) {
-			return objectMapper.convertValue(data, typeRef);
+		public <T> T unmarshalFrom(Object data, TypeRef<T> typeRef) {
+			return jsonMapper.convertValue(data, typeRef);
 		}
 
 		@Override
@@ -246,7 +253,7 @@ public class UDSMcpServerTransportProvider implements McpServerTransportProvider
 						logger.debug("Received message line=" + message);
 					}
 					try {
-						handleMessage(McpSchema.deserializeJsonRpcMessage(objectMapper, message.trim()));
+						handleMessage(McpSchema.deserializeJsonRpcMessage(jsonMapper, message.trim()));
 					} catch (IOException e) {
 						this.serverSocketChannel.close();
 					}
@@ -267,7 +274,7 @@ public class UDSMcpServerTransportProvider implements McpServerTransportProvider
 				 .handle((message, sink) -> {
 					 if (message != null && !isClosing.get()) {
 						 try {
-							 serverSocketChannel.writeMessage(objectMapper.writeValueAsString(message));
+							 serverSocketChannel.writeMessage(jsonMapper.writeValueAsString(message));
 							 sink.next(message);
 						 }
 						 catch (IOException e) {
@@ -304,5 +311,6 @@ public class UDSMcpServerTransportProvider implements McpServerTransportProvider
 				logger.error(message, e);
 			}
 		}
+
 	}
 }

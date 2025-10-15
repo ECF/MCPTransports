@@ -24,9 +24,8 @@ import org.eclipse.ecf.ai.mcp.transports.UDSClientStringChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import io.modelcontextprotocol.json.McpJsonMapper;
+import io.modelcontextprotocol.json.TypeRef;
 import io.modelcontextprotocol.spec.McpClientTransport;
 import io.modelcontextprotocol.spec.McpSchema;
 import io.modelcontextprotocol.spec.McpSchema.JSONRPCMessage;
@@ -45,7 +44,7 @@ public class UDSMcpClientTransport implements McpClientTransport {
 
 	private final Sinks.Many<JSONRPCMessage> outboundSink;
 
-	private ObjectMapper objectMapper;
+	private McpJsonMapper objectMapper;
 
 	private UDSClientStringChannel clientChannel;
 
@@ -56,15 +55,15 @@ public class UDSMcpClientTransport implements McpClientTransport {
 	private volatile boolean isClosing = false;
 
 	public UDSMcpClientTransport(Path targetAddress) throws IOException {
-		this(new ObjectMapper(), UDSClientStringChannel.DEFAULT_INBUFFER_SIZE, targetAddress);
+		this(McpJsonMapper.getDefault(), UDSClientStringChannel.DEFAULT_INBUFFER_SIZE, targetAddress);
 	}
 
 	public UDSMcpClientTransport(int incomingBufferSize, Path targetAddress) throws IOException {
-		this(new ObjectMapper(), incomingBufferSize, targetAddress);
+		this(McpJsonMapper.getDefault(), incomingBufferSize, targetAddress);
 	}
 
-	public UDSMcpClientTransport(ObjectMapper objectMapper, int incomingBufferSize,
-			Path targetAddress) throws IOException {
+	public UDSMcpClientTransport(McpJsonMapper objectMapper, int incomingBufferSize, Path targetAddress)
+			throws IOException {
 		Assert.notNull(objectMapper, "objectMapper can not be null");
 		Assert.notNull(targetAddress, "targetAddress cannot be null");
 		this.objectMapper = objectMapper;
@@ -171,7 +170,7 @@ public class UDSMcpClientTransport implements McpClientTransport {
 	}
 
 	@Override
-	public <T> T unmarshalFrom(Object data, TypeReference<T> typeRef) {
+	public <T> T unmarshalFrom(Object data, TypeRef<T> typeRef) {
 		return this.objectMapper.convertValue(data, typeRef);
 	}
 
