@@ -26,6 +26,7 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ServiceScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +44,7 @@ import reactor.core.publisher.Sinks;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
-@Component(immediate = true, service = UDSMcpClientTransport.class)
+@Component(scope = ServiceScope.PROTOTYPE, service = UDSMcpClientTransport.class)
 public class UDSMcpClientTransportImpl implements UDSMcpClientTransport {
 
 	private static final Logger logger = LoggerFactory.getLogger(UDSMcpClientTransportImpl.class);
