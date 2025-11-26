@@ -10,7 +10,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  *****************************************************************************/
-package com.composent.ai.mcp.transport.uds;
+package com.composent.ai.mcp.transport.uds.impl;
 
 import java.io.IOException;
 import java.net.StandardProtocolFamily;
@@ -23,20 +23,8 @@ import org.eclipse.ecf.ai.mcp.transports.ServerStringChannel;
 
 public class UDSServerStringChannel extends ServerStringChannel {
 
-	public UDSServerStringChannel() throws IOException {
-		super();
-	}
-
 	public UDSServerStringChannel(Selector selector, int incomingBufferSize, ExecutorService executor) {
 		super(selector, incomingBufferSize, executor);
-	}
-
-	public UDSServerStringChannel(Selector selector, int incomingBufferSize) {
-		super(selector, incomingBufferSize);
-	}
-
-	public UDSServerStringChannel(Selector selector) {
-		super(selector);
 	}
 
 	public void start(UnixDomainSocketAddress address, IOConsumer<SocketChannel> acceptHandler,

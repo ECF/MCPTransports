@@ -1,10 +1,9 @@
 -buildpath: \
 	org.osgi.service.component.annotations,\
-	com.fasterxml.jackson.core.jackson-databind,\
-	io.projectreactor.reactor-core,\
-	org.eclipse.ecf.remoteservice.asyncproxy,\
-	com.composent.ai.mcp.transport.uds,\
-	io.modelcontextprotocol.sdk.mcp-osgi,\
-	slf4j.api
+	io.modelcontextprotocol.sdk.mcp-core,\
+	slf4j.api,\
+	org.osgi.service.component,\
+	org.osgi.framework,\
+	com.composent.ai.mcp.transport.uds;version=snapshot
 
 Bundle-Version:             1.1.0.${tstamp}

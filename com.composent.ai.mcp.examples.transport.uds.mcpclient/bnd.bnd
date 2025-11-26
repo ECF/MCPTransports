@@ -1,7 +1,7 @@
 -buildpath: \
 	org.osgi.service.component.annotations,\
 	slf4j.api,\
-	io.modelcontextprotocol.sdk.mcp-osgi,\
+	io.modelcontextprotocol.sdk.mcp-core,\
 	com.composent.ai.mcp.transport.uds;version=snapshot,\
 	io.projectreactor.reactor-core
 

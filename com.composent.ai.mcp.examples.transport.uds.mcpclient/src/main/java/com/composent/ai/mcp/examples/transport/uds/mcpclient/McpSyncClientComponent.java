@@ -1,10 +1,11 @@
 package com.composent.ai.mcp.examples.transport.uds.mcpclient;
 
-import java.nio.file.Path;
+import java.time.Duration;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,23 +20,18 @@ public class McpSyncClientComponent {
 
 	private static Logger logger = LoggerFactory.getLogger(McpSyncClientComponent.class);
 
-	private final Path socketPath = Path.of("").toAbsolutePath().getParent().resolve("com.composent.ai.mcp.examples.transport.uds.mcpserver").resolve("s.socket").toAbsolutePath();
-
 	private McpSyncClient client;
 
 	@Activate
-	void activate() throws Exception {
-		logger.debug("starting uds client with socket at path={}", socketPath);
-		// create UDS transport via the socketPath (default is 
-		UDSMcpClientTransport transport = new UDSMcpClientTransport(socketPath);
-		// Create client with transport
-		client = McpClient.sync(transport).capabilities(ClientCapabilities.builder().build()).build();
+	public McpSyncClientComponent(@Reference UDSMcpClientTransport transport) {
+		client = McpClient.sync(transport).capabilities(ClientCapabilities.builder().build()).initializationTimeout(Duration.ofDays(1)).requestTimeout(Duration.ofDays(1)).build();
 		// initialize will connect to server
 		client.initialize();
 		logger.debug("uds sync client initialized");
 		// test list tools from server
 		client.listTools().tools().forEach(t -> logger.debug("uds sync client seeing tool=" + t.toString()));
 	}
+
 
 	@Deactivate
 	void deactivate() {

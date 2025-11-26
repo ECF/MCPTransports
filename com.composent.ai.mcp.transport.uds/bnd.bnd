@@ -1,14 +1,13 @@
 -buildpath: \
 	slf4j.api,\
-	com.fasterxml.jackson.core.jackson-annotations,\
-	com.fasterxml.jackson.core.jackson-core,\
-	com.fasterxml.jackson.core.jackson-databind,\
 	org.eclipse.ecf.ai.mcp.transports,\
-	io.projectreactor.reactor-core,\
-	reactive-streams,\
 	org.osgi.annotation.bundle,\
 	org.osgi.annotation.versioning,\
-	io.modelcontextprotocol.sdk.mcp-osgi
-Export-Package: com.composent.ai.mcp.transport.uds
+	io.modelcontextprotocol.sdk.mcp-core,\
+	org.osgi.service.component.annotations,\
+	io.projectreactor.reactor-core,\
+	reactive-streams,\
+	org.osgi.service.component,\
+	org.apache.felix.framework
 
-Bundle-Version:             1.2.0.${tstamp}
+Bundle-Version: 2.0.0.${tstamp}
