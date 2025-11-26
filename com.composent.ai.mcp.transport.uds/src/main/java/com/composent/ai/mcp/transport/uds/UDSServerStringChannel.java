@@ -10,7 +10,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  *****************************************************************************/
-package com.composent.ai.mcp.transport.uds.impl;
+package com.composent.ai.mcp.transport.uds;
 
 import java.io.IOException;
 import java.net.StandardProtocolFamily;

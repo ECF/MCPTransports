@@ -10,13 +10,14 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  *****************************************************************************/
-package com.composent.ai.mcp.transport.uds.impl;
+package com.composent.ai.mcp.transport.uds;
 
 import java.io.IOException;
 import java.net.UnixDomainSocketAddress;
 import java.nio.channels.Selector;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Function;
@@ -25,17 +26,13 @@ import org.eclipse.ecf.ai.mcp.transports.UDSClientStringChannel;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
-import org.osgi.service.component.annotations.ServiceScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.composent.ai.mcp.transport.uds.UDSMcpClientConfig;
-import com.composent.ai.mcp.transport.uds.UDSMcpClientTransport;
 
 import io.modelcontextprotocol.json.McpJsonDefaults;
 import io.modelcontextprotocol.json.McpJsonMapper;
 import io.modelcontextprotocol.json.TypeRef;
+import io.modelcontextprotocol.spec.McpClientTransport;
 import io.modelcontextprotocol.spec.McpSchema;
 import io.modelcontextprotocol.spec.McpSchema.JSONRPCMessage;
 import reactor.core.publisher.Flux;
@@ -44,13 +41,10 @@ import reactor.core.publisher.Sinks;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
-@Component(scope = ServiceScope.PROTOTYPE, service = UDSMcpClientTransport.class)
-public class UDSMcpClientTransportImpl implements UDSMcpClientTransport {
+@Component(factory = "UDSMcpClientTransportFactory")
+public class UDSMcpClientTransportImpl implements McpClientTransport {
 
 	private static final Logger logger = LoggerFactory.getLogger(UDSMcpClientTransportImpl.class);
-
-	public static final int DEFAULT_BUFFER_SIZE = Integer
-			.valueOf(System.getProperty("UDSMcpTransport.default_buffer_size", "4096"));
 
 	private final Sinks.Many<JSONRPCMessage> inboundSink;
 
@@ -59,13 +53,13 @@ public class UDSMcpClientTransportImpl implements UDSMcpClientTransport {
 	// Must be set/non-null
 	private McpJsonMapper objectMapper;
 
-	private ExecutorService executorService = Executors.newCachedThreadPool();
-
 	private Path targetAddress;
 
-	private int incomingBufferSize = DEFAULT_BUFFER_SIZE;
+	private int incomingBufferSize = 4096;
 
 	private Selector selector;
+
+	private ExecutorService executorService = Executors.newCachedThreadPool();
 
 	private UDSClientStringChannel clientChannel;
 
@@ -73,39 +67,27 @@ public class UDSMcpClientTransportImpl implements UDSMcpClientTransport {
 
 	private volatile boolean isClosing = false;
 
-	@Activate
-	public UDSMcpClientTransportImpl(@Reference UDSMcpClientConfig config) throws Exception {
+	public UDSMcpClientTransportImpl() {
 		this.inboundSink = Sinks.many().unicast().onBackpressureBuffer();
 		this.outboundSink = Sinks.many().unicast().onBackpressureBuffer();
-		this.objectMapper = McpJsonDefaults.getDefaultMcpJsonMapper();
-		this.selector = config.getSelector();
-		this.executorService = config.getExecutorService();
-		this.targetAddress = config.getClientSocketPath();
-		this.outboundScheduler = Schedulers.fromExecutorService(this.executorService, "outbound");
-		this.clientChannel = new UDSClientStringChannel(this.selector, this.incomingBufferSize);
 	}
 
-	@Override
-	public Path getClientSocketPath() {
-		return this.targetAddress;
+	@Activate
+	void activate(Map<String, Object> properties) throws Exception {
+		this.objectMapper = McpJsonDefaults.getDefaultMcpJsonMapper();
+
+		UDSMcpClientTransportConfig clientConfig = new UDSMcpClientTransportConfig(properties);
+		this.targetAddress = clientConfig.getTargetSocketPath();
+		this.selector = clientConfig.getSelector();
+		this.executorService = clientConfig.getExecutorService();
+
+		this.outboundScheduler = Schedulers.fromExecutorService(this.executorService, "outbound");
+		this.clientChannel = new UDSClientStringChannel(this.selector, this.incomingBufferSize);
 	}
 
 	@Reference
 	protected void setMcpJsonDefaults(McpJsonDefaults json) {
 
-	}
-
-	@Reference(cardinality = ReferenceCardinality.OPTIONAL)
-	public void setExecutorService(ExecutorService executorService) {
-		this.executorService = executorService;
-	}
-
-	public void setIncomingBufferSize(int incomingBufferSize) {
-		this.incomingBufferSize = incomingBufferSize;
-	}
-
-	public void setSelector(Selector selector) {
-		this.selector = selector;
 	}
 
 	@Override

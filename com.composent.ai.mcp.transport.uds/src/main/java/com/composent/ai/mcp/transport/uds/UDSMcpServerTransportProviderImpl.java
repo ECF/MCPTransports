@@ -10,7 +10,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  *****************************************************************************/
-package com.composent.ai.mcp.transport.uds.impl;
+package com.composent.ai.mcp.transport.uds;
 
 import java.io.IOException;
 import java.net.StandardProtocolFamily;
@@ -21,6 +21,7 @@ import java.nio.channels.SocketChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
@@ -29,12 +30,8 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ServiceScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.composent.ai.mcp.transport.uds.UDSMcpServerConfig;
-import com.composent.ai.mcp.transport.uds.UDSMcpServerTransportProvider;
 
 import io.modelcontextprotocol.json.McpJsonDefaults;
 import io.modelcontextprotocol.json.McpJsonMapper;
@@ -44,55 +41,51 @@ import io.modelcontextprotocol.spec.McpSchema;
 import io.modelcontextprotocol.spec.McpSchema.JSONRPCMessage;
 import io.modelcontextprotocol.spec.McpServerSession;
 import io.modelcontextprotocol.spec.McpServerTransport;
+import io.modelcontextprotocol.spec.McpServerTransportProvider;
 import io.modelcontextprotocol.spec.ProtocolVersions;
-import io.modelcontextprotocol.util.Assert;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
-@Component(scope = ServiceScope.PROTOTYPE, service = UDSMcpServerTransportProvider.class)
-public class UDSMcpServerTransportProviderImpl implements UDSMcpServerTransportProvider {
+@Component(factory = "UDSMcpServerTransportFactory")
+public class UDSMcpServerTransportProviderImpl implements McpServerTransportProvider {
 
 	private static final Logger logger = LoggerFactory.getLogger(UDSMcpServerTransportProviderImpl.class);
 
-	public static final int DEFAULT_BUFFER_SIZE = Integer
-			.valueOf(System.getProperty("UDSMcpTransport.default_buffer_size", "4096"));
-
 	// Required for serializing/deserializing json messages
 	private McpJsonMapper objectMapper;
-	// Required for configuring session/channel byte buffer size
-	private int incomingBufferSize = DEFAULT_BUFFER_SIZE;
 	// Required Path for UnixDomainSocket creation
 	private Path targetAddress;
-	// Determines whether the server allows new client to connect after previous
-	// client disconnects
-	private boolean restartSession = true;
-	// Created/set in setSessionFactory
-	private McpServerSession serverSession;
-	// Created/set in setSessionFactory
-	private UDSMcpSessionTransport sessionTransport;
-	private ExecutorService executorService;
+
+	private int incomingBufferSize;
+
+	private boolean restartSession;
+
 	private Selector selector;
 
-	@Activate
-	public UDSMcpServerTransportProviderImpl(@Reference UDSMcpServerConfig config) {
-		this.objectMapper = McpJsonDefaults.getDefaultMcpJsonMapper();
-		Assert.notNull(this.objectMapper, "objectMapper must not be null");
-		this.targetAddress = config.getServerSocketPath();
-		this.restartSession = config.isAutoRestartSession();
-		this.executorService = config.getExecutorService();
-		this.selector = config.getSelector();
-	}
+	private ExecutorService executorService;
 
-	@Override
-	public Path getServerSocketPath() {
-		return this.targetAddress;
-	}
+	// Created/set in setSessionFactory
+	private McpServerSession serverSession;
+
+	// Created/set in setSessionFactory
+	private UDSMcpSessionTransport sessionTransport;
 
 	@Reference
 	protected void setMcpJsonDefaults(McpJsonDefaults json) {
+	}
+
+	@Activate
+	protected void activate(Map<String, Object> properties) {
+		this.objectMapper = McpJsonDefaults.getDefaultMcpJsonMapper();
+		UDSMcpServerTransportConfig serverConfig = new UDSMcpServerTransportConfig(properties);
+		this.targetAddress = serverConfig.getTargetSocketPath();
+		this.incomingBufferSize = serverConfig.getIncomingBufferSize();
+		this.restartSession = serverConfig.autoRestartSession();
+		this.selector = serverConfig.getSelector();
+		this.executorService = serverConfig.getExecutorService();
 	}
 
 	@Deactivate

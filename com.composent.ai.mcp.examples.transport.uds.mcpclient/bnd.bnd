@@ -3,6 +3,7 @@
 	slf4j.api,\
 	io.modelcontextprotocol.sdk.mcp-core,\
 	com.composent.ai.mcp.transport.uds;version=snapshot,\
-	io.projectreactor.reactor-core
+	io.projectreactor.reactor-core,\
+	org.osgi.service.component
 
-Bundle-Version:             1.1.0.${tstamp}
+Bundle-Version: 1.2.0.${tstamp}

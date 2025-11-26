@@ -6,4 +6,4 @@
 	org.osgi.framework,\
 	com.composent.ai.mcp.transport.uds;version=snapshot
 
-Bundle-Version:             1.1.0.${tstamp}
+Bundle-Version: 1.2.0.${tstamp}
