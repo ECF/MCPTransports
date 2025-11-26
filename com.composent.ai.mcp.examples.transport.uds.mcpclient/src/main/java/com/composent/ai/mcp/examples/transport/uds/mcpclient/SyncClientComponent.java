@@ -20,9 +20,9 @@ import io.modelcontextprotocol.spec.McpClientTransport;
 import io.modelcontextprotocol.spec.McpSchema.ClientCapabilities;
 
 @Component
-public class McpSyncClientComponent {
+public class SyncClientComponent {
 
-	private static Logger logger = LoggerFactory.getLogger(McpSyncClientComponent.class);
+	private static Logger logger = LoggerFactory.getLogger(SyncClientComponent.class);
 
 	private final Path socketPath = Path.of("").toAbsolutePath().getParent()
 			.resolve("com.composent.ai.mcp.examples.transport.uds.mcpserver").resolve("s.socket").toAbsolutePath();
@@ -31,7 +31,7 @@ public class McpSyncClientComponent {
 	private McpSyncClient client;
 
 	@Activate
-	public McpSyncClientComponent(
+	public SyncClientComponent(
 			@Reference(target = "(component.factory=UDSMcpClientTransportFactory)") ComponentFactory<McpClientTransport> transportFactory) {
 		this.transportComponent = new UDSMcpClientTransportConfig(socketPath).newInstanceFromFactory(transportFactory);
 		client = McpClient.sync(this.transportComponent.getInstance())
