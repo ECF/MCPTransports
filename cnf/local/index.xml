@@ -1,5 +1,335 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Local" increment="1764054423680">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Local" increment="1768241543619">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.springaicommunity.mcp.provider.transport"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.0.0.202601120045" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="io.modelcontextprotocol.json,io.modelcontextprotocol.mcptools.json,io.modelcontextprotocol.spec"/>
+      <attribute name="bundle-symbolic-name" value="org.springaicommunity.mcp.provider.transport"/>
+      <attribute name="bundle-version" value="1.0.0.202601120045" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.springaicommunity.mcp.provider.transport"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="999489461,-1923478059" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.0.202601120045" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.springaicommunity.mcp.provider.transport"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.0.202601120045" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.springaicommunity.mcp.provider.transport"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="4980" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="org.springaicommunity.mcp.provider.transport/org.springaicommunity.mcp.provider.transport-1.0.0.jar"/>
+      <attribute name="osgi.content" value="E8CDE9E3CC2141029DEE51AC35FC9FC3B09D4AB2926250049F45B3832778B13A"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=io.modelcontextprotocol.json)(version&gt;=0.18.0)(!(version&gt;=1.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.json"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=io.modelcontextprotocol.mcptools.json)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.json"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=io.modelcontextprotocol.spec)(version&gt;=0.18.0)(!(version&gt;=1.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.spec"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.io)"/>
+      <attribute name="osgi.wiring.package" value="java.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang)"/>
+      <attribute name="osgi.wiring.package" value="java.lang"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=17))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="license" value="&quot;MIT License&quot;;link=&quot;http://www.opensource.org/licenses/mit-license.php&quot;"/>
+      <attribute name="osgi.identity" value="io.modelcontextprotocol.sdk.mcp-core"/>
+      <attribute name="documentation" value="https://github.com/modelcontextprotocol/java-sdk"/>
+      <attribute name="description" value="Core classes of the Java SDK implementation of the Model Context Protocol, enabling seamless integration with language models and AI tools"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="0.18.0.SNAPSHOT" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.sdk.mcp-core"/>
+      <attribute name="bundle-version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.client"/>
+      <attribute name="version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="bnd.hashes" value="645719329,1061176512,-1505118920,-1178386547,296284215,1881351446,1641777637,63574620,2592443,-1979638462,-1282124960" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.sdk.mcp-core"/>
+      <attribute name="bundle-version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.client.transport"/>
+      <attribute name="version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="bnd.hashes" value="1895597947,-2128518452,-1308538700,-508077190,1384876903,30214728,976093938,-1843192135,566961077,191714497,780096756,557488618,68950445,69685749" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.sdk.mcp-core"/>
+      <attribute name="bundle-version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.client.transport.customizer"/>
+      <attribute name="version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="bnd.hashes" value="1420176231,1105933944,2433922,-360982583,-1168280106" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.sdk.mcp-core"/>
+      <attribute name="bundle-version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.common"/>
+      <attribute name="version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="bnd.hashes" value="371996898,-593394332,875242278,1748359199,520806657,2097701856,2030456323,-1279457882,-220232880,243605102,-919116838" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.sdk.mcp-core"/>
+      <attribute name="bundle-version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.json"/>
+      <attribute name="version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="bnd.hashes" value="-1599212044,1638089315,-1435595441,811550425" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.sdk.mcp-core"/>
+      <attribute name="bundle-version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.json.schema"/>
+      <attribute name="version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="bnd.hashes" value="1464660986,987160713,-548625035" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.sdk.mcp-core"/>
+      <attribute name="bundle-version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.server"/>
+      <attribute name="version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="bnd.hashes" value="1559775254,1827045666,-726500603,1137809480,-907468283,1580612613,1299098069,903943175,-716500587,-1890319686,1480022801,1228577214,-1836617820,345029710,932899336,2093663581,63574620,1554747531,-600770045,-1832729959,-1009990081,1895597947,-1291645105,2592443,225876300,-1718056124,-1802827878,-2084275648,-135267120,-1952882502,341431663,2050591855,-1048494293,-5507568,-267829481,1420967726,-830239016,625420571,995747364" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.sdk.mcp-core"/>
+      <attribute name="bundle-version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.server.transport"/>
+      <attribute name="version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="bnd.hashes" value="1895597947,-1237571792,-1993337393,-22496839,-5726154,-1057454080,977185220,1194531470" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.sdk.mcp-core"/>
+      <attribute name="bundle-version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.spec"/>
+      <attribute name="version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="bnd.hashes" value="-1324154949,-763345462,-1513151226,1489018640,-977306178,1464660986,987160713,1033921368,-1308074049,2129631707,683578609,234217156,1895597947,1994657966,-35276417,-955688840,706159364,-470505501,-652844251,2143552633,-346435341,-1431078551,-360323624,2040214535,1141422913,-1083326990,1453256502,1465332246,1609494262,-1149552107,51978966,-1678783399,238044896,897252548,601413894,1275929416,-1726481437,1955883606,-1856748471,88825048,-691327202,2021759221,-627458825,69076575,375032009,1714113214,681342930,708762815,161470445,-1122818710,-997111448,-982050830,1399649323,-325870786,-1865507639,-85553042,1669282858,-47955452,1080242096,723725882,-748259451,313872595,2394661,-7032528,1011706927,759553291,1601391394,-1195208406,1465186264,-1895938684,994853985,345560547,1886064167,1194574347,454236449,-1534621073,-276420562,589476971,1093917032,-220297912,-966358339,339692232,-1736976639,-1850559427,2552982,2553090,-1032970752,872679890,268558485,-9534630,-600459516,965832078,1885504185,-379914291,-1416607227,1779462764,400644277,2612664,1057096268,-885424482,2091502523,572770538,-944433009,1908842251,1238631033,1063651916,-217356195,878013646,479899580,1302732726,-1800877585,520550559,1583491135,1761728146,1691455139,2067165903,-854706624,-1163808569,-663525252,-702248295,-1686300881,-763718207,1955306867" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.sdk.mcp-core"/>
+      <attribute name="bundle-version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.util"/>
+      <attribute name="version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="bnd.hashes" value="1970626406,-2032645536,-1011543414,1895597947,1224902003,301629390,-1321801247,116207593,82059409" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="io.modelcontextprotocol.sdk.mcp-core"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="0.18.0.SNAPSHOT" type="Version"/>
+      <attribute name="osgi.wiring.host" value="io.modelcontextprotocol.sdk.mcp-core"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="511893" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="io.modelcontextprotocol.sdk.mcp-core/io.modelcontextprotocol.sdk.mcp-core-0.18.0.jar"/>
+      <attribute name="osgi.content" value="6BB728B8C31176AE36DDBEB8F34C69B5182F4D2DEC664F4B354032CB62F6DE08"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=jakarta.servlet)(version&gt;=6.1.0)(!(version&gt;=7.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="jakarta.servlet"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=jakarta.servlet.annotation)(version&gt;=6.1.0)(!(version&gt;=7.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="jakarta.servlet.annotation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=jakarta.servlet.http)(version&gt;=6.1.0)(!(version&gt;=7.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+      <attribute name="osgi.wiring.package" value="jakarta.servlet.http"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.fasterxml.jackson.annotation)(version&gt;=2.19.0)(!(version&gt;=3.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="com.fasterxml.jackson.annotation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.reactivestreams)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.reactivestreams"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=reactor.core)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="reactor.core"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=reactor.core.publisher)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="reactor.core.publisher"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=reactor.core.scheduler)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="reactor.core.scheduler"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=reactor.util.annotation)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="reactor.util.annotation"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=reactor.util.context)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="reactor.util.context"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=reactor.util.function)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="reactor.util.function"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=17))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="io.modelcontextprotocol.mcptools.transport"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.0.0.202601120040" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="io.modelcontextprotocol.mcptools.json"/>
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.mcptools.transport"/>
+      <attribute name="bundle-version" value="1.0.0.202601120040" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.transport"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="2067165903,-1923478059" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="io.modelcontextprotocol.mcptools.transport"/>
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.mcptools.transport"/>
+      <attribute name="bundle-version" value="1.0.0.202601120040" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.transport.client"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="234217156,-1923478059" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="io.modelcontextprotocol.mcptools.transport"/>
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.mcptools.transport"/>
+      <attribute name="bundle-version" value="1.0.0.202601120040" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.transport.server"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1114129327,1063651916,-217356195,878013646,-1923478059" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.0.202601120040" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="io.modelcontextprotocol.mcptools.transport"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.0.202601120040" type="Version"/>
+      <attribute name="osgi.wiring.host" value="io.modelcontextprotocol.mcptools.transport"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="11239" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="io.modelcontextprotocol.mcptools.transport/io.modelcontextprotocol.mcptools.transport-1.0.0.jar"/>
+      <attribute name="osgi.content" value="8DC939B3867B61D47CC6133BCB14B6C9637E7FEA052FF5B029C20D81D5AB926A"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=io.modelcontextprotocol.mcptools.json)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.json"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=io.modelcontextprotocol.mcptools.transport)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.transport"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang)"/>
+      <attribute name="osgi.wiring.package" value="java.lang"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util)"/>
+      <attribute name="osgi.wiring.package" value="java.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.function)"/>
+      <attribute name="osgi.wiring.package" value="java.util.function"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=17))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="io.modelcontextprotocol.mcptools.json"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.0.0.202601110108" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.mcptools.json"/>
+      <attribute name="bundle-version" value="1.0.0.202601110108" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.json"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="-1073899198,-1353643128,-1923478059" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.mcptools.json"/>
+      <attribute name="bundle-version" value="1.0.0.202601110108" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.json.schema"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1464660986,987160713,-1923478059" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.0.202601110108" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="io.modelcontextprotocol.mcptools.json"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.0.202601110108" type="Version"/>
+      <attribute name="osgi.wiring.host" value="io.modelcontextprotocol.mcptools.json"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="8418" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="io.modelcontextprotocol.mcptools.json/io.modelcontextprotocol.mcptools.json-1.0.0.jar"/>
+      <attribute name="osgi.content" value="4ED698E08F959722D0CBEA24B4309809C1F7064957F652A460DED0AC3576331E"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.io)"/>
+      <attribute name="osgi.wiring.package" value="java.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang)"/>
+      <attribute name="osgi.wiring.package" value="java.lang"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang.invoke)"/>
+      <attribute name="osgi.wiring.package" value="java.lang.invoke"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang.reflect)"/>
+      <attribute name="osgi.wiring.package" value="java.lang.reflect"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang.runtime)"/>
+      <attribute name="osgi.wiring.package" value="java.lang.runtime"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util)"/>
+      <attribute name="osgi.wiring.package" value="java.util"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=17))"/>
+    </requirement>
+  </resource>
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="&quot;MIT License&quot;;link=&quot;http://www.opensource.org/licenses/mit-license.php&quot;"/>
@@ -150,6 +480,173 @@
   </resource>
   <resource>
     <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.springaicommunity.mcp.provider.transport.uds"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.0.0.202601121811" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="io.modelcontextprotocol.json,io.modelcontextprotocol.mcptools.json,io.modelcontextprotocol.mcptools.transport.client,io.modelcontextprotocol.mcptools.transport.server,io.modelcontextprotocol.spec,org.eclipse.ecf.ai.mcp.transports,reactor.core.publisher"/>
+      <attribute name="bundle-symbolic-name" value="org.springaicommunity.mcp.provider.transport.uds"/>
+      <attribute name="bundle-version" value="1.0.0.202601121811" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.springaicommunity.mcp.provider.transport.uds"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="1771193424,63882954,-62628222,662842450,-576780119,-1348605239,-471109227,-1497871637,105390743,-1923478059" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.0.202601121811" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="org.springaicommunity.mcp.provider.transport.uds"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.0.202601121811" type="Version"/>
+      <attribute name="osgi.wiring.host" value="org.springaicommunity.mcp.provider.transport.uds"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="41541" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="org.springaicommunity.mcp.provider.transport.uds/org.springaicommunity.mcp.provider.transport.uds-1.0.0.jar"/>
+      <attribute name="osgi.content" value="DD028A8C36F7ED858B4C44CE5D4D230DFD039B460F484764D7BC502BC5E1AFE4"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <directive name="uses" value="io.modelcontextprotocol.mcptools.transport.client"/>
+      <attribute name="objectClass" value="io.modelcontextprotocol.mcptools.transport.client.McpClientTransport" type="List&lt;String&gt;"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <directive name="uses" value="io.modelcontextprotocol.mcptools.transport.server"/>
+      <attribute name="objectClass" value="io.modelcontextprotocol.mcptools.transport.server.McpServerTransportProvider" type="List&lt;String&gt;"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <directive name="uses" value="io.modelcontextprotocol.spec"/>
+      <attribute name="objectClass" value="io.modelcontextprotocol.spec.McpClientTransport" type="List&lt;String&gt;"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <directive name="uses" value="io.modelcontextprotocol.spec"/>
+      <attribute name="objectClass" value="io.modelcontextprotocol.spec.McpServerTransportProvider" type="List&lt;String&gt;"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" value="org.osgi.service.component.ComponentFactory" type="List&lt;String&gt;"/>
+      <attribute name="component.factory" value="UDSClientTransportFactory"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" value="org.osgi.service.component.ComponentFactory" type="List&lt;String&gt;"/>
+      <attribute name="component.factory" value="UDSMcpClientTransportFactory"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" value="org.osgi.service.component.ComponentFactory" type="List&lt;String&gt;"/>
+      <attribute name="component.factory" value="UDSMcpServerTransportProviderFactory"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" value="org.osgi.service.component.ComponentFactory" type="List&lt;String&gt;"/>
+      <attribute name="component.factory" value="UDSServerTransportProviderFactory"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=io.modelcontextprotocol.json)(version&gt;=0.18.0)(!(version&gt;=1.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.json"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=io.modelcontextprotocol.mcptools.json)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.json"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=io.modelcontextprotocol.mcptools.transport.client)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.transport.client"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=io.modelcontextprotocol.mcptools.transport.server)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.transport.server"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=io.modelcontextprotocol.spec)(version&gt;=0.18.0)(!(version&gt;=1.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.spec"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.io)"/>
+      <attribute name="osgi.wiring.package" value="java.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang)"/>
+      <attribute name="osgi.wiring.package" value="java.lang"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang.invoke)"/>
+      <attribute name="osgi.wiring.package" value="java.lang.invoke"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.net)"/>
+      <attribute name="osgi.wiring.package" value="java.net"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.nio.channels)"/>
+      <attribute name="osgi.wiring.package" value="java.nio.channels"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.nio.file)"/>
+      <attribute name="osgi.wiring.package" value="java.nio.file"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.time)"/>
+      <attribute name="osgi.wiring.package" value="java.time"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util)"/>
+      <attribute name="osgi.wiring.package" value="java.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.concurrent)"/>
+      <attribute name="osgi.wiring.package" value="java.util.concurrent"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.concurrent.atomic)"/>
+      <attribute name="osgi.wiring.package" value="java.util.concurrent.atomic"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.function)"/>
+      <attribute name="osgi.wiring.package" value="java.util.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.ecf.ai.mcp.transports)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.eclipse.ecf.ai.mcp.transports"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.reactivestreams)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.reactivestreams"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(version&gt;=1.7.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.slf4j"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.springaicommunity.mcp.provider.transport)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.springaicommunity.mcp.provider.transport"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.springaicommunity.mcp.provider.transport.uds)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="org.springaicommunity.mcp.provider.transport.uds"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=reactor.core)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="reactor.core"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=reactor.core.publisher)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="reactor.core.publisher"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=reactor.core.scheduler)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="reactor.core.scheduler"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=reactor.util.context)(version&gt;=3.7.0)(!(version&gt;=4.0.0)))"/>
+      <attribute name="osgi.wiring.package" value="reactor.util.context"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=17))"/>
+    </requirement>
+    <requirement namespace="osgi.extender">
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
       <attribute name="license" value="&quot;MIT License&quot;;link=&quot;http://www.opensource.org/licenses/mit-license.php&quot;"/>
       <attribute name="osgi.identity" value="io.modelcontextprotocol.sdk.mcp-json-jackson2"/>
       <attribute name="documentation" value="https://github.com/modelcontextprotocol/java-sdk"/>
@@ -202,6 +699,79 @@
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
       <attribute name="osgi.wiring.package" value="org.slf4j"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=17))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="io.modelcontextprotocol.mcptools.common"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.0.0.202601110108" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.mcptools.common"/>
+      <attribute name="bundle-version" value="1.0.0.202601110108" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.common"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="875242278,57229457,-1657029485,520806657,260397471,2030456323,-1279457882,1783733914,-220232880,644931632,-202122312,243605102,-919116838,1955330790,-1923478059" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.mcptools.common"/>
+      <attribute name="bundle-version" value="1.0.0.202601110108" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.common.spec"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="706159364,-470505501,-1954948800,-652844251,-1686569015,2143552633,-997004449,-346435341,-1524910090,-139735472,-420089796,-837884740,-8958622,-1722184863,-912686167,1116149887,66505436,1121821313,809992932,-1745052890,1141422913,-1070713738,-1980040156,-1310738456,1609494262,1453256502,1465332246,-1546566628,1452261372,51978966,969136052,897252548,1654865770,1275929416,1910351934,2029715318,-1726481437,1667000164,377677741,1579559753,320105266,-1856748471,86024680,-818618419,88825048,-1486425174,543821346,67232232,2021759221,894841563,-627458825,-666098558,-1063545892,-311342800,-1500051750,1341462580,1428806104,2273433,70476538,1714113214,681342930,708762815,-461375707,161470445,-1076314689,25750002,944312716,-1122818710,-997111448,-982050830,-325870786,331376827,1441040951,1640969310,-85553042,206307362,1669282858,-1488472696,-47955452,-874087076,1080242096,1367727871,-1202745939,958812178,723725882,-748259451,313872595,-1857287111,-7032528,1011706927,494735191,759553291,-90141071,1203828330,1601391394,-986525880,-1195208406,-551580515,-807439173,1465186264,-607020162,1569819564,-1895938684,994853985,1767036445,345560547,1886064167,1194574347,567194481,454236449,2092797823,-1534621073,-1597066262,-1477229292,2098962645,-276420562,1093917032,-220297912,437621811,-1263488153,339692232,-1761495709,1068737080,1063189982,-1850559427,2552982,2553090,2125253968,-1032970752,569701812,-901370393,-1890263811,727499172,765677739,-2021331613,1069755699,1885504185,-326632466,-1424987732,2032302432,-379914291,192090035,1520180390,229164338,-1416607227,-482355221,2599333,780376042,-1886252044,-1331964425,-231376766,221607080,1779462764,400644277,760672519,441671926,-1231868501,-464926510,1696825651,-1987898406,2612664,1057096268,1170931065,1838496832,-684768407,-1209895228,-50395958,-631369852,1903799662,1404319503,-885424482,1103852996,302862194,-132915221,-1923478059" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="bundle-symbolic-name" value="io.modelcontextprotocol.mcptools.common"/>
+      <attribute name="bundle-version" value="1.0.0.202601110108" type="Version"/>
+      <attribute name="osgi.wiring.package" value="io.modelcontextprotocol.mcptools.common.util"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="bnd.hashes" value="148294400,-1923478059" type="List&lt;Long&gt;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.0.0.202601110108" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="io.modelcontextprotocol.mcptools.common"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.0.0.202601110108" type="Version"/>
+      <attribute name="osgi.wiring.host" value="io.modelcontextprotocol.mcptools.common"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="247497" type="Long"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="io.modelcontextprotocol.mcptools.common/io.modelcontextprotocol.mcptools.common-1.0.0.jar"/>
+      <attribute name="osgi.content" value="E5C7E2971664F2CEC5FAD227A4AE8F6CB16466703907F76200E8FB45F48B6069"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.io)"/>
+      <attribute name="osgi.wiring.package" value="java.io"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang)"/>
+      <attribute name="osgi.wiring.package" value="java.lang"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.lang.invoke)"/>
+      <attribute name="osgi.wiring.package" value="java.lang.invoke"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util)"/>
+      <attribute name="osgi.wiring.package" value="java.util"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.concurrent)"/>
+      <attribute name="osgi.wiring.package" value="java.util.concurrent"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.function)"/>
+      <attribute name="osgi.wiring.package" value="java.util.function"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=java.util.stream)"/>
+      <attribute name="osgi.wiring.package" value="java.util.stream"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=17))"/>
