@@ -15,7 +15,7 @@
 -runvm: -Dorg.slf4j.simpleLogger.defaultLogLevel=debug
 -resolve: manual
 -runbundles: \
-	com.fasterxml.jackson.core.jackson-annotations;version='[2.19.2,2.19.3)';startlevel=1000,\
+	com.fasterxml.jackson.core.jackson-annotations;version='[2.21.0,2.21.1)';startlevel=1000,\
 	reactive-streams;version='[1.0.4,1.0.5)';startlevel=1001,\
 	io.projectreactor.reactor-core;version='[3.7.0,3.7.1)';startlevel=1002,\
 	org.objectweb.asm;version='[9.8.0,9.8.1)';startlevel=1003,\
@@ -32,13 +32,13 @@
 	org.osgi.service.component;version='[1.5.1,1.5.2)';startlevel=1014,\
 	org.apache.felix.scr;version='[2.2.6,2.2.7)';startlevel=1015,\
 	com.composent.ai.mcp.examples.transport.uds.mcpclient;version=snapshot;startlevel=1016,\
-	com.fasterxml.jackson.core.jackson-core;version='[2.19.2,2.19.3)';startlevel=1017,\
-	com.fasterxml.jackson.core.jackson-databind;version='[2.19.2,2.19.3)';startlevel=1018,\
+	com.fasterxml.jackson.core.jackson-core;version='[2.21.0,2.21.1)';startlevel=1017,\
+	com.fasterxml.jackson.core.jackson-databind;version='[2.21.0,2.21.1)';startlevel=1018,\
 	com.ethlo.time.itu;version='[1.14.0,1.14.1)';startlevel=1019,\
 	org.yaml.snakeyaml;version='[2.4.0,2.4.1)';startlevel=1020,\
-	com.fasterxml.jackson.dataformat.jackson-dataformat-yaml;version='[2.19.2,2.19.3)';startlevel=1021,\
+	com.fasterxml.jackson.dataformat.jackson-dataformat-yaml;version='[2.21.0,2.21.1)';startlevel=1021,\
 	com.networknt.json-schema-validator;version='[2.0.0,2.0.1)';startlevel=1022,\
-	io.modelcontextprotocol.sdk.mcp-json-jackson2;version='[0.17.0,0.17.1)';startlevel=1023,\
+	io.modelcontextprotocol.sdk.mcp-json-jackson2;version='[0.18.0,0.18.1)';startlevel=1023,\
 	org.apache.felix.gogo.command;version='[1.1.2,1.1.3)';startlevel=1024,\
 	org.apache.felix.gogo.shell;version='[1.1.4,1.1.5)';startlevel=1025,\
 	io.modelcontextprotocol.mcptools.json;version='[1.0.0,1.0.1)';startlevel=1026,\
