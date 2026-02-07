@@ -3,7 +3,6 @@
 	slf4j.api,\
 	org.osgi.service.component,\
 	org.osgi.framework,\
-	io.modelcontextprotocol.sdk.mcp-core,\
-	org.springaicommunity.mcp.provider.transport.uds
+	io.modelcontextprotocol.sdk.mcp-core
 
 Bundle-Version: 1.2.0.${tstamp}

@@ -3,9 +3,6 @@
 	slf4j.api,\
 	io.projectreactor.reactor-core,\
 	org.osgi.service.component,\
-	io.modelcontextprotocol.mcptools.transport,\
-	io.modelcontextprotocol.sdk.mcp-core,\
-	io.modelcontextprotocol.sdk.mcp-core,\
 	io.modelcontextprotocol.sdk.mcp-core
 
 Bundle-Version: 1.2.0.${tstamp}

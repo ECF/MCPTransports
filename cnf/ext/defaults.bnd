@@ -16,7 +16,7 @@
 		releaseUrl          ='https://repo.maven.apache.org/maven2/';\
 		index               ='${.}/ecf.support.mvn';\
 		readOnly            =true;\
-		name                ='ECF Maven Central Support, Etcd Discovery Provider, and Tools'
+		name                ='MCP Maven Dependencies'
 
 -plugin.3.Local: aQute.bnd.deployer.repository.LocalIndexedRepo;\
 		name                =Local;\
